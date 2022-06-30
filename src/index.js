@@ -3,34 +3,45 @@ import "./main.css";
 import rPlayer from "./rplayer";
 
 var audio = new rPlayer();
-var currentStationUrl = "";
+var currentStation = {};
 const play = document.getElementById("play");
 const currentStationName = document.getElementById("current-station-name");
 const currentStationLogo = document.getElementById("current-station-logo");
-
 
 const STATIONS = [
   {
     id: 0,
     name: "Radio Montecarlo",
-    frequency: "109.1",
+    frequency: "109.1 FM",
     city: "Asunción",
     country: "Paraguay",
     streamUrl:
       "https://www.desdepylabs.com/Stream/StreamUrl/montecarlo/hls/endpoint",
     logoUrl:
       "https://www.radiomontecarlo.com.py/wp-content/uploads/2019/06/logo-montecarlo.svg",
+    redirect: true,
   },
   {
     id: 1,
     name: "WNYC",
-    frequency: "93.9",
+    frequency: "93.9 FM",
     city: "New York",
     country: "USA",
+    streamUrl: "https://fm939.wnyc.org/wnycfm-mobile.aac",
+    logoUrl: "https://media.wnyc.org/i/300/300/c/80/1/wnyc_square_logo.png",
+    redirect: false,
+  },
+  {
+    id: 2,
+    name: "Monumental 1080",
+    frequency: "1080 AM",
+    city: "Asunción",
+    country: "Paraguay",
     streamUrl:
-      "https://fm939.wnyc.org/wnycfm-mobile.aac",
+      "https://copaco.desdeparaguay.net/mov1080/mov1080.stream/playlist.m3u8",
     logoUrl:
-      "https://media.wnyc.org/i/300/300/c/80/1/wnyc_square_logo.png",
+      "https://monumental.com.py/wp-content/uploads/2020/11/icono-monumental-blanco.png",
+    redirect: false,
   },
 ];
 
@@ -83,49 +94,54 @@ const createStationCard = function ({
 const loadStations = function () {
   let stations = document.getElementById("stations");
   STATIONS.forEach((station) => {
-    stations.insertAdjacentHTML('beforeend', createStationCard(station));
+    stations.insertAdjacentHTML("beforeend", createStationCard(station));
   });
-  stations.insertAdjacentHTML('beforeend', `<div class="h-16 w-full">&nbsp;</div>`);
+  stations.insertAdjacentHTML(
+    "beforeend",
+    `<div class="h-16 w-full">&nbsp;</div>`
+  );
 
-  document.querySelectorAll('.station').forEach(station=>{
-    station.addEventListener("click", function(e){
-      setCurrentStation(e.target.closest('.station').getAttribute("data-id"));
+  document.querySelectorAll(".station").forEach((station) => {
+    station.addEventListener("click", function (e) {
+      setCurrentStation(e.target.closest(".station").getAttribute("data-id"));
+      playControl();
     });
   });
 };
 
-const setCurrentStation = function (id){
+const setCurrentStation = function (id) {
   let current = STATIONS[id];
-  currentStationName.innerText = current.name;
-  currentStationLogo.setAttribute("src", current.logoUrl);
-  currentStationUrl = current.streamUrl;
-}
+  currentStation = current;
+  currentStationName.innerText = currentStation.name;
+  currentStationLogo.setAttribute("src", currentStation.logoUrl);
+};
 
-
-play.addEventListener("click", function () {
+const playControl = function () {
   if (audio.playing) {
     audio.stop();
     changePlayIcon("play");
   } else {
     if (audio.paused) {
-      fetch(
-        `https://whereisblas.herokuapp.com/get-redirect-url?url=${currentStationUrl}`
-      )
-        .then((response) => response.json())
-        .then(function (data) {
-          audio.playSrc(data.url);
-
-          changePlayIcon("pause");
-
-          console.log("Playing:", audio.playing);
-          console.log("Volume:", audio.volume * 100);
-          console.log("Paused:", audio.paused);
-          console.log("Muted:", audio.muted);
-          console.log("Source:", audio.src);
-          console.log("isHls:", audio.isHls);
-        });
+      if (currentStation.redirect) {
+        fetch(
+          `https://whereisblas.herokuapp.com/get-redirect-url?url=${currentStation.streamUrl}`
+        )
+          .then((response) => response.json())
+          .then(function (data) {
+            audio.playSrc(data.url);
+            changePlayIcon("pause");
+          });
+      } else {
+        audio.playSrc(currentStation.streamUrl);
+        changePlayIcon("pause");
+      }
+      document.title = currentStation.name;
     }
   }
+};
+
+play.addEventListener("click", function () {
+  playControl();
 });
 
 loadStations();

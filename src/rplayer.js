@@ -32,10 +32,11 @@ export default class rPlayer extends Audio {
      */
     playSrc(src) {
         const isHls = src.indexOf('.m3u8') > 0;
+        const isAac = src.indexOf('.aac') > 0;
 
         this.stop();
 
-        if (Hls.isSupported() /*&& isHls*/) {
+        if (Hls.isSupported() /*&& isHls*/ && !isAac) {
             this.hls = new Hls();
             this.hls.loadSource(src);
             this.hls.attachMedia(this);
@@ -47,7 +48,7 @@ export default class rPlayer extends Audio {
             this.addEventListener('loadedmetadata', () => {
                 this.play();
             });
-        } 
+        }
     }
 
     mute() {
