@@ -43,6 +43,18 @@ const STATIONS = [
       "https://monumental.com.py/wp-content/uploads/2020/11/icono-monumental-blanco.png",
     redirect: false,
   },
+  {
+    id: 3,
+    name: "Ñuai",
+    frequency: "94.9 FM",
+    city: "Pastoreo",
+    country: "Paraguay",
+    streamUrl:
+      "https://ssl.streaming.com.py:7154/;?mode=.aac",
+    logoUrl:
+      "https://i.ibb.co/c2P8Wkm/nuai1.png",
+    redirect: false,
+  },
 ];
 
 const playSvg = `
