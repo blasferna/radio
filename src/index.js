@@ -57,6 +57,30 @@ const STATIONS = [
       "https://i.ibb.co/c2P8Wkm/nuai1.png",
     redirect: false,
   },
+  {
+    id: 4,
+    name: "Universo",
+    frequency: "970 AM",
+    city: "Asunción",
+    country: "Paraguay",
+    streamUrl:
+      "https://www.desdepylabs.com/Stream/StreamUrl/970/hls/endpoint",
+    logoUrl:
+      "https://i1.sndcdn.com/avatars-000674972318-qc3y00-t500x500.jpg",
+    redirect: true,
+  },
+  {
+    id: 5,
+    name: "Vernus",
+    frequency: "105.1 FM",
+    city: "Asunción",
+    country: "Paraguay",
+    streamUrl:
+      "https://copaco.desdeparaguay.net/movvenus/movvenus.stream/playlist.m3u8",
+    logoUrl:
+      "https://play-lh.googleusercontent.com/paY2iUv1diTL15ReRRK71K4VIHxjg9xPkIl_kPkflszMqzQwY5iQYG8u69xZSBIXCg",
+    redirect: false,
+  },
 ];
 
 const playSvg = `
