@@ -7,6 +7,8 @@ var currentStation = {};
 const play = document.getElementById("play");
 const currentStationName = document.getElementById("current-station-name");
 const currentStationLogo = document.getElementById("current-station-logo");
+const currentStationFrequency = document.getElementById("current-station-frequency");
+const currentStationLocation = document.getElementById("current-station-location");
 
 const STATIONS = [
   {
@@ -18,7 +20,7 @@ const STATIONS = [
     streamUrl:
       "https://www.desdepylabs.com/Stream/StreamUrl/montecarlo/hls/endpoint",
     logoUrl:
-      "https://www.radiomontecarlo.com.py/wp-content/uploads/2019/06/logo-montecarlo.svg",
+      "https://cdn-radiotime-logos.tunein.com/s114808d.png",
     redirect: true,
   },
   {
@@ -40,7 +42,7 @@ const STATIONS = [
     streamUrl:
       "https://copaco.desdeparaguay.net/mov1080/mov1080.stream/playlist.m3u8",
     logoUrl:
-      "https://monumental.com.py/wp-content/uploads/2020/11/icono-monumental-blanco.png",
+      "https://images.radiovolna.net/_files/images/stations/402961/sz7f59d4aab121a24151778321_165x165.webp",
     redirect: false,
   },
   {
@@ -58,17 +60,24 @@ const STATIONS = [
 ];
 
 const playSvg = `
-<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>  
+<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M18.3 36.4q-.75.5-1.525.05Q16 36 16 35.1V12.6q0-.9.775-1.35.775-.45 1.525.05L36 22.6q.7.45.7 1.25T36 25.1Z"/></svg>
 `;
 
 const pauseSvg = `
-<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-<path stroke-linecap="round" stroke-linejoin="round" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg> 
+<svg width="30" height="32" fill="currentColor">
+<rect x="6" y="4" width="4" height="24" rx="2" />
+<rect x="20" y="4" width="4" height="24" rx="2" />
+</svg>
 `;
+
+
+audio.addEventListener('play', function(){
+  changePlayIcon("pause");
+});
+
+audio.addEventListener('pause', function(){
+  changePlayIcon("play");
+});
 
 const changePlayIcon = function (icon) {
   if (icon === "play") {
@@ -89,7 +98,7 @@ const createStationCard = function ({
   return `
   <a href="javascript:void(0)" data-id="${id}" class="station group w-full bg-slate-700 hover:bg-slate-800">
   <div class="w-full flex h-16">
-    <div class="w-16 h-16 flex p-1 bg-yellow-100 group-hover:opacity-50">
+    <div class="w-16 h-16 flex group-hover:opacity-50">
       <img class="object-contain" src="${logoUrl}">
       </img>
     </div>
@@ -126,6 +135,8 @@ const setCurrentStation = function (id) {
   currentStation = current;
   currentStationName.innerText = currentStation.name;
   currentStationLogo.setAttribute("src", currentStation.logoUrl);
+  currentStationFrequency.innerText = currentStation.frequency;
+  currentStationLocation.innerText = `${currentStation.city}, ${currentStation.country}`;
 };
 
 const playControl = function () {
@@ -141,11 +152,9 @@ const playControl = function () {
           .then((response) => response.json())
           .then(function (data) {
             audio.playSrc(data.url);
-            changePlayIcon("pause");
           });
       } else {
         audio.playSrc(currentStation.streamUrl);
-        changePlayIcon("pause");
       }
       document.title = currentStation.name;
     }
