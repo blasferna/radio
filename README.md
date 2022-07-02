@@ -5,7 +5,7 @@
 My personal radio player 
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/8385910/177001370-024f6645-7620-4239-b918-3ecda2f5c8f7.png" width="400" />
+  <img src="https://user-images.githubusercontent.com/8385910/177001853-51c6c60a-1bf1-443e-8e5b-0f766be799b0.png" width="400" />
 </p>
 
 
