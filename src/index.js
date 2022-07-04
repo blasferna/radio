@@ -71,7 +71,7 @@ const STATIONS = [
   },
   {
     id: 5,
-    name: "Vernus",
+    name: "Venus",
     frequency: "105.1 FM",
     city: "Asunción",
     country: "Paraguay",
@@ -79,6 +79,18 @@ const STATIONS = [
       "https://copaco.desdeparaguay.net/movvenus/movvenus.stream/playlist.m3u8",
     logoUrl:
       "https://play-lh.googleusercontent.com/paY2iUv1diTL15ReRRK71K4VIHxjg9xPkIl_kPkflszMqzQwY5iQYG8u69xZSBIXCg",
+    redirect: false,
+  },
+  {
+    id: 6,
+    name: ".977 Today's Hits",
+    frequency: "97.7 FM",
+    city: "Florida/Orlando",
+    country: "Estados Unidos",
+    streamUrl:
+      "https://26283.live.streamtheworld.com/977_HITSAAC_SC?dist=onlineradiobox&mode=.aac",
+    logoUrl:
+      "http://images.radio.orange.com/radios/large_977_the_hitz_channel.png",
     redirect: false,
   },
 ];
@@ -143,7 +155,7 @@ const loadStations = function () {
   });
   stations.insertAdjacentHTML(
     "beforeend",
-    `<div class="h-16 w-full">&nbsp;</div>`
+    `<div class="h-24 w-full">&nbsp;</div>`
   );
 
   document.querySelectorAll(".station").forEach((station) => {
