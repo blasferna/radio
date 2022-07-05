@@ -1,42 +1,174 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Radio Player</title>
-    </head>
-    <body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radio Player</title>
+  </head>
+  <body>
+    <div>
+      <div class="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
+        <div class="flex min-h-0 flex-1 flex-col bg-slate-800">
+          <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
+            <div class="flex flex-shrink-0 items-center px-4"></div>
+            <nav class="mt-5 flex-1 space-y-1 px-2">
+              <a
+                href="#"
+                class="group flex items-center rounded-md bg-gray-900 px-2 py-2 text-sm font-medium text-white"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mr-3 h-6 w-6 flex-shrink-0 text-yellow-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+                Favorites
+              </a>
 
-        <div class="w-full min-h-screen">
-            <div class="flex flex-col h-screen">
+              <a
+                href="#"
+                class="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mr-3 h-6 w-6 flex-shrink-0 text-yellow-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                Search
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-1 flex-col md:pl-64">
+        <main class="flex-1">
+          <div class="min-h-screen w-full">
+            <div class="flex h-screen flex-col">
               <div class="grow bg-slate-900">
-                 <div class="flex flex-col p-3 min-h-full space-y-2" id="stations">
-                 </div>
+                <div
+                  class="flex min-h-full flex-col space-y-2 p-3"
+                  id="stations"
+                ></div>
               </div>
-              <div class="w-full fixed bottom-0 p-3"> 
-                <div class="h-24 w-full  bg-slate-800 bg-opacity-95 rounded-lg">
-                  <div class="w-full h-full p-2 flex">
-                        <div class="w-20 h-20 flex group-hover:opacity-50">
-                          <img class="object-contain" id="current-station-logo" src="https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/94/1f/7a/941f7a3a-3de8-8705-6cfe-06eec4635e1a/source/512x512bb.jpg">
-                          </img>
+              <div class="fixed bottom-0 w-full p-3 md:pr-[268px]">
+                <div class="h-24 w-full rounded-lg bg-slate-800 bg-opacity-95">
+                  <div class="flex h-full w-full p-2">
+                    <div class="flex h-20 w-20 group-hover:opacity-50">
+                      <img
+                        class="object-contain"
+                        id="current-station-logo"
+                        src="https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/94/1f/7a/941f7a3a-3de8-8705-6cfe-06eec4635e1a/source/512x512bb.jpg"
+                      />
+                    </div>
+                    <div class="ml-2 grow pt-1 pl-2">
+                      <p
+                        class="text-sm leading-6 text-cyan-400"
+                        id="current-station-frequency"
+                      >
+                        ...
+                      </p>
+                      <h2
+                        class="truncate text-sm leading-6 text-slate-400"
+                        id="current-station-location"
+                      >
+                        ...
+                      </h2>
+                      <p
+                        class="text-md text-slate-50"
+                        id="current-station-name"
+                      >
+                        ...
+                      </p>
+                    </div>
+                    <div class="flex items-center pr-1 text-white">
+                      <div class="flex items-center pr-1 text-white">
+                        <div class="flex items-center pr-1 text-white">
+                          <button
+                            type="button"
+                            id="play"
+                            class="-my-2 mx-auto flex h-20 w-20 flex-none items-center justify-center rounded-full bg-white text-slate-900 shadow-md ring-1 ring-slate-900/5 dark:bg-slate-100 dark:text-slate-700"
+                            aria-label="Pause"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              height="48"
+                              width="48"
+                            >
+                              <path
+                                d="M18.3 36.4q-.75.5-1.525.05Q16 36 16 35.1V12.6q0-.9.775-1.35.775-.45 1.525.05L36 22.6q.7.45.7 1.25T36 25.1Z"
+                              />
+                            </svg>
+                          </button>
                         </div>
-                          <div class="grow pt-1 pl-2 ml-2">
-                              <p class="text-sm leading-6 text-cyan-400" id="current-station-frequency">...</p>
-                              <h2 class="truncate text-sm leading-6 text-slate-400" id="current-station-location">...</h2>
-                              <p class="text-md text-slate-50" id="current-station-name">...</p>
-                          </div>
-                          <div class="text-white flex items-center pr-1"> 
-                            <button type="button" id="play" class="-my-2 mx-auto flex h-20 w-20 flex-none items-center justify-center rounded-full bg-white text-slate-900 shadow-md ring-1 ring-slate-900/5 dark:bg-slate-100 dark:text-slate-700" aria-label="Pause">
-                              <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M18.3 36.4q-.75.5-1.525.05Q16 36 16 35.1V12.6q0-.9.775-1.35.775-.45 1.525.05L36 22.6q.7.45.7 1.25T36 25.1Z"/></svg>
-                            </button>
-                          </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
+                <div
+                  class="mt-2 flex w-full justify-center bg-slate-900 bg-opacity-95 md:hidden"
+                >
+                  <a
+                    class="mx-3 flex flex-col items-center p-5 text-xs text-gray-400"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="mx-auto h-6 w-6 text-yellow-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+                    Favorites
+                  </a>
+                  <a
+                    class="mx-3 flex flex-col items-center p-5 text-xs text-gray-400"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="mx-auto h-6 w-6 text-yellow-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                    Buscar
+                  </a>
+                </div>
+              </div>
             </div>
-        </div>
-            
-    </body>
-    
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
 </html>
