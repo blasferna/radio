@@ -102,7 +102,7 @@ const STATIONS = [
     streamUrl:
       "https://stream.radiosenpy.net/8812/;?mode=.aac",
     logoUrl:
-      "https://play-lh.googleusercontent.com/zvxAmk2I0Kq5Iv3k_vMnlu21r4HM4V1VzoIZG8GkSHfSoDiwgQ2oAWsXlR_3IDB3Uw=w240-h480-rw",
+      "https://play-lh.googleusercontent.com/zvxAmk2I0Kq5Iv3k_vMnlu21r4HM4V1VzoIZG8GkSHfSoDiwgQ2oAWsXlR_3IDB3Uw",
     redirect: false,
   },
 ];
