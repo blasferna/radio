@@ -85,12 +85,24 @@ const STATIONS = [
     id: 6,
     name: ".977 Today's Hits",
     frequency: "97.7 FM",
-    city: "Florida/Orlando",
-    country: "Estados Unidos",
+    city: "Orlando",
+    country: "USA",
     streamUrl:
       "https://26283.live.streamtheworld.com/977_HITSAAC_SC?dist=onlineradiobox&mode=.aac",
     logoUrl:
-      "http://images.radio.orange.com/radios/large_977_the_hitz_channel.png",
+      "https://images.radio.orange.com/radios/large_977_the_hitz_channel.png",
+    redirect: false,
+  },
+  {
+    id: 7,
+    name: "Onda Verde",
+    frequency: "91.1 FM",
+    city: "Caaguazu",
+    country: "Paraguay",
+    streamUrl:
+      "https://stream.radiosenpy.net/8812/;?mode=.aac",
+    logoUrl:
+      "https://play-lh.googleusercontent.com/zvxAmk2I0Kq5Iv3k_vMnlu21r4HM4V1VzoIZG8GkSHfSoDiwgQ2oAWsXlR_3IDB3Uw=w240-h480-rw",
     redirect: false,
   },
 ];
