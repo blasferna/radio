@@ -4,10 +4,18 @@ import rPlayer from "./rplayer";
 
 var audio = new rPlayer();
 var currentStation = {};
+var currentView = "";
+const views = {FAVORITES: 'favs', SEARCH: 'search'};
 const play = document.getElementById("play");
+const searchContainer = document.getElementById("search-container");
+const searchInput = document.getElementById("search-input");
+const heartLink = document.getElementById("heart-link");
+const likeSvg = document.querySelector(".like");
+const unLikeSvg = document.querySelector(".unlike");
 const currentStationName = document.getElementById("current-station-name");
 const currentStationLogo = document.getElementById("current-station-logo");
 const currentStationFrequency = document.getElementById("current-station-frequency");
+const currentStationFrequencyName = document.getElementById("current-station-frequency-name");
 const currentStationLocation = document.getElementById("current-station-location");
 
 const STATIONS = [
@@ -96,13 +104,14 @@ const STATIONS = [
 ];
 
 const playSvg = `
-<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M18.3 36.4q-.75.5-1.525.05Q16 36 16 35.1V12.6q0-.9.775-1.35.775-.45 1.525.05L36 22.6q.7.45.7 1.25T36 25.1Z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" viewBox="0 0 20 20" fill="currentColor">
+<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+</svg>
 `;
 
 const pauseSvg = `
-<svg width="30" height="32" fill="currentColor">
-<rect x="6" y="4" width="4" height="24" rx="2" />
-<rect x="20" y="4" width="4" height="24" rx="2" />
+<svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" viewBox="0 0 20 20" fill="currentColor">
+  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
 </svg>
 `;
 
@@ -123,6 +132,26 @@ const changePlayIcon = function (icon) {
   }
 };
 
+const removeChildren = function(a) {
+  while (a.hasChildNodes()) {
+      a.removeChild(a.lastChild);
+  }
+}
+
+const getEmptyState = function(){
+   return `
+    <div class="grid min-h-screen w-full place-items-center">
+      <div class="text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-400">No favorites</h3>
+      <p class="mt-1 text-sm text-gray-500">You don't have any favorite radio to show</p>
+      </div>
+    </div>
+   `;
+};
+
 const createStationCard = function ({
   id,
   name,
@@ -131,31 +160,60 @@ const createStationCard = function ({
   country,
   logoUrl,
 }) {
+  let liked = currentView === views.SEARCH ? isLiked(id) : false;
+  let likeHTML = `
+    <div class="w-6 flex mx-3">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 my-auto" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  `;
+
   return `
-  <a href="javascript:void(0)" data-id="${id}" class="station group w-full bg-slate-700 hover:bg-slate-800">
-  <div class="w-full flex h-16">
-    <div class="w-16 h-16 flex group-hover:opacity-50">
-      <img class="object-contain" src="${logoUrl}">
+  <a href="javascript:void(0)" data-id="${id}" class="station p-1 w-full lg:w-1/2 xl:w-1/3">
+  <div class="group w-full flex h-16 md:h-20  bg-slate-700 hover:bg-slate-800 rounded-md">
+    <div class="w-16 h-16 md:w-20 md:h-20 flex group-hover:opacity-50">
+      <img class="object-contain rounded-md rounded-r-none" src="${logoUrl}">
       </img>
     </div>
     <div class="grow p-2">
         <p> <span class="text-sm text-white font-medium">${name}</span>
         <br> <span class="text-xs text-gray-400"> ${frequency} - ${city}, ${country} </span>
         </p>
-    </div>
+    </div> 
+    ${liked ? likeHTML : ""}
   </div>
   </a>
   `;
 };
 
-const loadStations = function () {
-  let stations = document.getElementById("stations");
-  STATIONS.forEach((station) => {
-    stations.insertAdjacentHTML("beforeend", createStationCard(station));
+const loadStations = function (view, stationName = null) {
+  let stationsData = STATIONS;
+  let stationsContainer = document.getElementById("stations");
+
+  removeChildren(stationsContainer);
+
+  if (view == views.FAVORITES) {
+    stationsData = stationsData.filter((station) => isLiked(station.id));
+  }
+
+  if (stationName) {
+    stationsData = stationsData.filter(
+      (station) =>
+        station.name.toLowerCase().search(stationName.toLowerCase()) >= 0
+    );
+  }
+
+  stationsData.forEach((station) => {
+    stationsContainer.insertAdjacentHTML(
+      "beforeend",
+      createStationCard(station)
+    );
   });
-  stations.insertAdjacentHTML(
+
+  stationsContainer.insertAdjacentHTML(
     "beforeend",
-    `<div class="h-24 w-full">&nbsp;</div>`
+    `<div class="h-40 w-full">&nbsp;</div>`
   );
 
   document.querySelectorAll(".station").forEach((station) => {
@@ -164,7 +222,97 @@ const loadStations = function () {
       playControl();
     });
   });
+
+  if (stationsData.length === 0 && currentView === views.FAVORITES) {
+    stationsContainer.innerHTML = getEmptyState();
+    stationsContainer.classList.remove("py-3");
+  } else {
+    stationsContainer.classList.add("py-3");
+  }
 };
+
+
+const addEvents = function () {
+  document.querySelectorAll(".favorite-link").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      changeView(views.FAVORITES);
+    });
+  });
+
+  document.querySelectorAll(".search-link").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      changeView(views.SEARCH);
+    });
+  });
+
+  heartLink.addEventListener("click", function (e) {
+    toggleLike(currentStation.id);
+  });
+
+  searchInput.addEventListener("keyup", function(e) {
+    loadStations(currentView, searchInput.value);
+  });
+};
+
+const getLikes = function () {
+  let raw = localStorage.getItem("likes");
+  return raw ? JSON.parse(raw) : [];
+};
+
+const isLiked = function (id) {
+  let likes = getLikes();
+  return typeof likes.find((e) => e === id) !== "undefined";
+};
+
+const toggleLike = function (id) {
+  let likes = getLikes();
+  if (isLiked(id)) {
+    likes = likes.filter((e) => e != id);
+  } else {
+    likes.push(id);
+  }
+  localStorage.setItem("likes", JSON.stringify(likes));
+  drawLikeUnlikeCurrentStation();
+  loadStations(currentView);
+};
+
+const drawLikeUnlikeCurrentStation = function(){
+  likeSvg.classList.add("hidden");
+  unLikeSvg.classList.add("hidden");
+  if (isLiked(currentStation.id)) {
+    likeSvg.classList.remove("hidden");
+  } else {
+    unLikeSvg.classList.remove("hidden");
+  }
+}
+
+const resetLinks = function(){
+  document.querySelectorAll('.favorite-link, .search-link').forEach(function(el){
+    el.classList.remove('text-white');
+    el.classList.add('text-gray-400');
+  });
+};
+
+const changeView = function(view){
+  currentView = view;
+  resetLinks();
+  if (view == views.FAVORITES){
+    document.querySelectorAll('.favorite-link').forEach(function(el){
+      el.classList.remove('text-gray-400');
+      el.classList.add('text-white');
+    });
+    searchContainer.classList.add("hidden");
+  }
+  if (view == views.SEARCH){
+    document.querySelectorAll('.search-link').forEach(function(el){
+      el.classList.remove('text-gray-400');
+      el.classList.add('text-white');
+    });
+    searchContainer.classList.remove("hidden");
+    searchInput.focus();
+  }
+  loadStations(view);
+}
 
 const setCurrentStation = function (id) {
   let current = STATIONS[id];
@@ -172,7 +320,9 @@ const setCurrentStation = function (id) {
   currentStationName.innerText = currentStation.name;
   currentStationLogo.setAttribute("src", currentStation.logoUrl);
   currentStationFrequency.innerText = currentStation.frequency;
+  currentStationFrequencyName.innerText = `${currentStation.frequency} - ${currentStation.name}`;
   currentStationLocation.innerText = `${currentStation.city}, ${currentStation.country}`;
+  drawLikeUnlikeCurrentStation();
 };
 
 const playControl = function () {
@@ -201,4 +351,5 @@ play.addEventListener("click", function () {
   playControl();
 });
 
-loadStations();
+addEvents();
+changeView(views.FAVORITES);
