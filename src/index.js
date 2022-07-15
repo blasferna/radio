@@ -113,6 +113,18 @@ const STATIONS = [
       "https://play-lh.googleusercontent.com/zvxAmk2I0Kq5Iv3k_vMnlu21r4HM4V1VzoIZG8GkSHfSoDiwgQ2oAWsXlR_3IDB3Uw",
     redirect: false,
   },
+  {
+    id: 8,
+    name: "ABC",
+    frequency: "98.5 FM",
+    city: "Asunción",
+    country: "Paraguay",
+    streamUrl:
+      "https://rds3.desdeparaguay.net:8002/abcfm?mode=.aac",
+    logoUrl:
+      "https://pbs.twimg.com/profile_images/1534544170253266947/TGoQ4pCl_400x400.jpg",
+    redirect: false,
+  },
 ];
 
 const playSvg = `
