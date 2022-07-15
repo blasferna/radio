@@ -125,6 +125,42 @@ const STATIONS = [
       "https://pbs.twimg.com/profile_images/1534544170253266947/TGoQ4pCl_400x400.jpg",
     redirect: false,
   },
+  {
+    id: 9,
+    name: "Disney",
+    frequency: "96.5 FM",
+    city: "Asunción",
+    country: "Paraguay",
+    streamUrl:
+      "https://rds1.radiomagic.com.py:9433/stream?mode=.aac",
+    logoUrl:
+      "http://1.bp.blogspot.com/-Q_gWaEu_mhs/VT15WOfn_NI/AAAAAAAAB3c/kwL8doEuYNE/s1600/dysneypy.jpg",
+    redirect: false,
+  },
+  {
+    id: 10,
+    name: "Centenario",
+    frequency: "99.5 FM",
+    city: "Caaguazu",
+    country: "Paraguay",
+    streamUrl:
+      "http://stream.radiios.com:7995/;?mode=.aac",
+    logoUrl:
+      "https://1.bp.blogspot.com/-mKcYwJKEggQ/V-b8UsGzzCI/AAAAAAAAD5k/jLB42Ed-Yd0zLPFyTJgWuvO_Kr_HXVwUgCLcB/s1600/Radio-Centenario.jpg",
+    redirect: false,
+  },
+  {
+    id: 11,
+    name: "Farra",
+    frequency: "101.3 FM",
+    city: "Asunción",
+    country: "Paraguay",
+    streamUrl:
+      "https://rfs1.farra.com.py:9433/stream?mode=.aac",
+    logoUrl:
+      "https://2.bp.blogspot.com/-WC5palR7n1k/VTsXrRKTlRI/AAAAAAAAB1U/uD8xPWzSagY/s320/farrapy.jpg",
+    redirect: false,
+  },
 ];
 
 const playSvg = `
