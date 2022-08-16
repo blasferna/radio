@@ -122,7 +122,7 @@ const STATIONS = [
     streamUrl:
       "https://rds3.desdeparaguay.net:8002/abcfm?mode=.aac",
     logoUrl:
-      "https://pbs.twimg.com/profile_images/1534544170253266947/TGoQ4pCl_400x400.jpg",
+      "https://scontent.fasu10-1.fna.fbcdn.net/v/t39.30808-6/298341162_10167082087915323_3279475007887942077_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=4BVldErCycAAX-uJo_9&_nc_ht=scontent.fasu10-1.fna&oh=00_AT_v_zHAwRkFDlJrFjvI-zPkhzIQuXxN1o3dJ45jitKUJw&oe=63012997",
     redirect: false,
   },
   {
@@ -144,7 +144,7 @@ const STATIONS = [
     city: "Caaguazu",
     country: "Paraguay",
     streamUrl:
-      "http://stream.radiios.com:7995/;?mode=.aac",
+      "http://stream.radiios.com:7995/;stream?mode=.aac",
     logoUrl:
       "https://1.bp.blogspot.com/-mKcYwJKEggQ/V-b8UsGzzCI/AAAAAAAAD5k/jLB42Ed-Yd0zLPFyTJgWuvO_Kr_HXVwUgCLcB/s1600/Radio-Centenario.jpg",
     redirect: false,
