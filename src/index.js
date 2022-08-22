@@ -122,7 +122,7 @@ const STATIONS = [
     streamUrl:
       "https://rds3.desdeparaguay.net:8002/abcfm?mode=.aac",
     logoUrl:
-      "https://scontent.fasu10-1.fna.fbcdn.net/v/t39.30808-6/298341162_10167082087915323_3279475007887942077_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=4BVldErCycAAX-uJo_9&_nc_ht=scontent.fasu10-1.fna&oh=00_AT_v_zHAwRkFDlJrFjvI-zPkhzIQuXxN1o3dJ45jitKUJw&oe=63012997",
+      "data:image/png;base64,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",
     redirect: false,
   },
   {
@@ -134,7 +134,7 @@ const STATIONS = [
     streamUrl:
       "https://rds1.radiomagic.com.py:9433/stream?mode=.aac",
     logoUrl:
-      "http://1.bp.blogspot.com/-Q_gWaEu_mhs/VT15WOfn_NI/AAAAAAAAB3c/kwL8doEuYNE/s1600/dysneypy.jpg",
+      "https://1.bp.blogspot.com/-Q_gWaEu_mhs/VT15WOfn_NI/AAAAAAAAB3c/kwL8doEuYNE/s1600/dysneypy.jpg",
     redirect: false,
   },
   {
@@ -144,7 +144,7 @@ const STATIONS = [
     city: "Caaguazu",
     country: "Paraguay",
     streamUrl:
-      "http://stream.radiios.com:7995/;stream?mode=.aac",
+      "https://stream.radiios.com:7995/;stream?mode=.aac",
     logoUrl:
       "https://1.bp.blogspot.com/-mKcYwJKEggQ/V-b8UsGzzCI/AAAAAAAAD5k/jLB42Ed-Yd0zLPFyTJgWuvO_Kr_HXVwUgCLcB/s1600/Radio-Centenario.jpg",
     redirect: false,
