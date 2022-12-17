@@ -393,7 +393,7 @@ const playControl = function () {
     if (audio.paused) {
       if (currentStation.redirect) {
         fetch(
-          `https://whereisblas.herokuapp.com/get-redirect-url?url=${currentStation.streamUrl}`
+          `https://endpoints.aguara.app/get-redirect-url?url=${currentStation.streamUrl}`
         )
           .then((response) => response.json())
           .then(function (data) {
