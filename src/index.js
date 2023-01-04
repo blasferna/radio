@@ -5,6 +5,7 @@ import rPlayer from "./rplayer";
 var audio = new rPlayer();
 var currentStation = {};
 var currentView = "";
+const contentDiv = document.querySelector(".content");
 const views = {FAVORITES: 'favs', SEARCH: 'search'};
 const play = document.getElementById("play");
 const searchContainer = document.getElementById("search-container");
@@ -312,6 +313,12 @@ const addEvents = function () {
   searchInput.addEventListener("keyup", function(e) {
     loadStations(currentView, searchInput.value);
   });
+
+
+  document.addEventListener('DOMContentLoaded', function(e) {
+    contentDiv.style.display = "block";
+  });
+
 };
 
 const getLikes = function () {
